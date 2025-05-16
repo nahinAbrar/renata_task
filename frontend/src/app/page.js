@@ -12,7 +12,7 @@ export default function Home() {
 
   return (
     <main className="p-6">
-      <h1 className="text-2xl font-bold mb-4">Sales Bar Chart</h1>
+      <h1 className="text-2xl font-bold mb-4 text-center">Renata PLC FrontEnd Taks</h1>
       {barData.length
         ? <BarChart data={barData} />
         : <p>Loading chart…</p>
