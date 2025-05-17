@@ -13,16 +13,14 @@ function formatNumber(v) {
 
 export default function GaugeChart({ value = 0, min = 0, max = 10 }) {
 
-
-
-
     const option = {
         tooltip: {
             formatter: () => {
-                if (value <= max * 0.3) return "Low";
-                if (value <= max * 0.7) return "Medium";
+                if (value <= 3_000_000) return "Low";
+                if (value < 7_000_000) return "Medium";
                 return "High";
             }
+
         },
         series: [
             {
@@ -36,8 +34,8 @@ export default function GaugeChart({ value = 0, min = 0, max = 10 }) {
                 splitNumber: 5,
                 axisLine: {
                     lineStyle: {
-                        width: 20,
-                        cap: "round",  // rounded ends
+                        roundCap: true,
+                        width: 15,
                         color: [
                             [0.3, "#EF4444"],
                             [0.7, "#F59E0B"],
@@ -55,13 +53,13 @@ export default function GaugeChart({ value = 0, min = 0, max = 10 }) {
                     show: false,
                 },
                 splitLine: {
-                    distance: -20,
+                    distance: -30,
                     length: 12,
                     lineStyle: { color: "#999", width: 3 },
 
                 },
                 axisLabel: {
-                    distance: 40,
+                    distance: -20,
                     color: "#6B7280",
                     fontSize: 12,
                     formatter: val => formatNumber(val)
@@ -70,9 +68,8 @@ export default function GaugeChart({ value = 0, min = 0, max = 10 }) {
                     valueAnimation: true,
                     formatter: () => formatNumber(value),
                     color: "#111856",
-                    distance:-80,
                     fontSize: 24,
-                    offsetCenter: [0, "20%"]
+                    offsetCenter: [0, "50%"]
                 },
                 title: {
                     offsetCenter: [0, "-30%"],
@@ -89,7 +86,7 @@ export default function GaugeChart({ value = 0, min = 0, max = 10 }) {
 
     return (
         <div className="w-full max-w-md mx-auto">
-            <ReactECharts option={option} style={{ height: 300 }} />
+            <ReactECharts option={option} style={{ height: 400, padding: 20, }} />
         </div>
     );
 }

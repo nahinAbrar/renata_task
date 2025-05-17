@@ -38,15 +38,16 @@ export default function Home() {
           }
         </div>
 
-        <div>
-          <div className="flex gap-10 items-center justify-center">
+        <div className="mt-40 w-full mx-auto">
+          <h2 className="text-xl font-bold mb-4 text-center">Gauge Chart</h2>
+          <div className="grid grid-cols-3 justify-around">
             {/* Month selector */}
-            <div className="flex flex-col space-y-2">
+            <div className="flex flex-col space-y-2 p-5 justify-center items-center">
               {data.map(d => (
                 <button
                   key={d.month}
                   onClick={() => setSelected(d)}
-                  className={`px-4 py-2 rounded ${selected?.month === d.month
+                  className={`px-4 py-2 rounded w-[110px] ${selected?.month === d.month
                     ? "bg-blue-500 text-white"
                     : "bg-gray-200 text-gray-800"
                     }`}
