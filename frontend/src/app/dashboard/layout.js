@@ -21,16 +21,20 @@ import Button from "@mui/material/Button";
 import MenuIcon from "@mui/icons-material/Menu";
 import HomeIcon from "@mui/icons-material/Home";
 import BarChartIcon from "@mui/icons-material/BarChart";
-import SpeedIcon from "@mui/icons-material/Speed";
+import PieChartIcon from "@mui/icons-material/PieChart";
+
 
 import ThemeProviderClient from "@/components/ThemeProviderClient";
+import { FilterProvider } from "@/contexts/FilterContext";
+import FilterPanel from "@/components/FilterPanel";
 
 const drawerWidth = 240;
-const navItems = [
-  { label: "Home",        href: "/dashboard",      icon: <HomeIcon /> },
-  { label: "Bar Chart",   href: "/dashboard/bar",  icon: <BarChartIcon /> },
-  { label: "Gauge Chart", href: "/dashboard/gauge",icon: <SpeedIcon /> },
-];
+ const navItems = [
+   { label: "Home",        href: "/dashboard",      icon: <HomeIcon /> },
+   { label: "Bar Chart",   href: "/dashboard/bar",  icon: <BarChartIcon /> },
+   { label: "Gender Split",href: "/dashboard/gender",icon: <PieChartIcon /> },
+ ];
+
 
 export default function DashboardLayout({ children }) {
   const router = useRouter();
@@ -48,8 +52,8 @@ export default function DashboardLayout({ children }) {
   };
 
   const drawer = (
-    <Box sx={{ display: "flex", flexDirection: "column", height: "100%"}}>
-      <Toolbar sx={{ justifyContent: "center"}}>
+    <Box sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
+      <Toolbar sx={{ justifyContent: "center" }}>
         <Typography variant="h6" className="md:hidden">RENATA</Typography>
       </Toolbar>
       <Divider />
@@ -86,79 +90,83 @@ export default function DashboardLayout({ children }) {
 
   return (
     <ThemeProviderClient>
-      <Box sx={{ display: "flex", height: "100vh" }}>
-        {/* AppBar offset by drawerWidth on md+ */}
-        <AppBar
-          position="fixed"
-          color="transparent"
-          elevation={1}
-          sx={{
-            zIndex: (theme) => theme.zIndex.drawer + 1,
-            ml: { md: `${drawerWidth}px` }
-          }}
-        >
-          <Toolbar>
-            <IconButton
-              edge="start"
-              onClick={handleDrawerToggle}
-              sx={{ mr: 2, display: { md: "none" } }}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Typography variant="h5" sx={{ flexGrow: 1 }}>
-              Analytics Dashboard
-            </Typography>
-            {/* Desktop‐only Logout */}
-            <Button
-              color="error"
-              onClick={handleLogout}
-              sx={{ display: { xs: "none", md: "inline-flex" } }}
-            >
-              Logout
-            </Button>
-          </Toolbar>
-        </AppBar>
-
-        {/* Sidebar Drawers */}
-        <Box component="nav" sx={{ width: { md: drawerWidth }, flexShrink: { md: 0 } }}>
-          <Drawer
-            variant="temporary"
-            open={mobileOpen}
-            onClose={handleDrawerToggle}
-            ModalProps={{ keepMounted: true }}
+      <FilterProvider>
+        <Box sx={{ display: "flex", height: "100vh" }}>
+          {/* AppBar offset by drawerWidth on md+ */}
+          <AppBar
+            position="fixed"
+            color="transparent"
+            elevation={1}
             sx={{
-              display: { xs: "block", md: "none" },
-              "& .MuiDrawer-paper": { width: drawerWidth }
+              zIndex: (theme) => theme.zIndex.drawer + 1,
+              ml: { md: `${drawerWidth}px` }
             }}
           >
-            {drawer}
-          </Drawer>
-          <Drawer
-            variant="permanent"
-            open
+            <Toolbar>
+              <IconButton
+                edge="start"
+                onClick={handleDrawerToggle}
+                sx={{ mr: 2, display: { md: "none" } }}
+              >
+                <MenuIcon />
+              </IconButton>
+              <Typography variant="h5" sx={{ flexGrow: 1 }}>
+                Analytics Dashboard
+              </Typography>
+              {/* Desktop‐only Logout */}
+              <Button
+                color="error"
+                onClick={handleLogout}
+                sx={{ display: { xs: "none", md: "inline-flex" } }}
+              >
+                Logout
+              </Button>
+            </Toolbar>
+          </AppBar>
+
+          {/* Sidebar Drawers */}
+          <Box component="nav" sx={{ width: { md: drawerWidth }, flexShrink: { md: 0 } }}>
+            <Drawer
+              variant="temporary"
+              open={mobileOpen}
+              onClose={handleDrawerToggle}
+              ModalProps={{ keepMounted: true }}
+              sx={{
+                display: { xs: "block", md: "none" },
+                "& .MuiDrawer-paper": { width: drawerWidth }
+              }}
+            >
+              {drawer}
+              <FilterPanel />
+            </Drawer>
+            <Drawer
+              variant="permanent"
+              open
+              sx={{
+                display: { xs: "none", md: "block" },
+                "& .MuiDrawer-paper": { width: drawerWidth }
+              }}
+            >
+              {drawer}
+              <FilterPanel />
+            </Drawer>
+          </Box>
+
+          {/* Main Content offset by drawerWidth on md+ */}
+          <Box
+            component="main"
             sx={{
-              display: { xs: "none", md: "block" },
-              "& .MuiDrawer-paper": { width: drawerWidth }
+              flexGrow: 1,
+              p: 3,
+              ml: { md: `${drawerWidth}px` },
+              mt: 8,
+              overflow: "auto"
             }}
           >
-            {drawer}
-          </Drawer>
+            {children}
+          </Box>
         </Box>
-
-        {/* Main Content offset by drawerWidth on md+ */}
-        <Box
-          component="main"
-          sx={{
-            flexGrow: 1,
-            p: 3,
-            ml: { md: `${drawerWidth}px` },
-            mt: 8,
-            overflow: "auto"
-          }}
-        >
-          {children}
-        </Box>
-      </Box>
+      </FilterProvider>
     </ThemeProviderClient>
   );
 }

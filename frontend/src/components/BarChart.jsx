@@ -3,111 +3,106 @@
 import React from "react";
 import dynamic from "next/dynamic";
 
-// Load the React wrapper without SSR
 const ReactECharts = dynamic(() => import("echarts-for-react"), { ssr: false });
 
-export default function BarChart({ data }) {
-    // 1) Sort by TotalSales descending
-    const sorted = [...data].sort((a, b) => b.TotalSales - a.TotalSales);
+export default function BarChart({
+  data = [],
+  xKey = "category",
+  yKey = "value",
+  colorKey = null,
+  xLabel = xKey,
+  yLabel = yKey
+}) {
+  // 1) Sort by yKey descending
+  const sorted = [...data].sort((a, b) => b[yKey] - a[yKey]);
 
-    // 2) Extract categories and values
-    const products = sorted.map(r => r.Product);
-    const sales = sorted.map(r => r.TotalSales);
-    const totalValues = sorted.map(r => r.TotalValue);
+  // 2) Extract arrays
+  const categories = sorted.map(r => r[xKey]);
+  const values     = sorted.map(r => r[yKey]);
 
-    const maxSales = Math.max(...sales);
-    const roundedMax = Math.ceil(maxSales / 2) * 2; // round up to nearest even number
-
-    // 3) Build the ECharts option
-    const option = {
-        title: {
-            text: "3 Variable Interactive Bar Chart",
-            left: "left",
-            textStyle: { fontSize: 16, fontWeight: 700 }
-        },
-        dataset: {
-            // supply the array of objects directly
-            source: sorted,
-            dimensions: ["Product", "TotalSales", "TotalValue"]
-        },
-        grid: { top: 50, bottom: 50, left: 60, right: 100 },
-        xAxis: {
-            type: "category",
-            data: products,
-            name: "Product",             // ← Here’s your title
-            nameLocation: "middle",      // positions the title
-            nameGap: 30,                 // distance from axis line
-            nameTextStyle: {
-                color: "#374151"
-            },
-            axisLine: { lineStyle: { color: "#e5e7eb" } },
-            axisTick: { show: false },
-            axisLabel: { color: "#6b7280", fontSize: 12 }
-        },
-        yAxis: {
-            type: "value",
-            name: "TotalSales",
-            nameLocation: "middle",
-            nameGap: 40,
-            min: 0,
-            max: roundedMax,
-            splitNumber: roundedMax / 2,        // controls the number of segments
-            axisLine: { show: false },
-            splitLine: { lineStyle: { color: "#e5e7eb", type: "dashed" } },
-            axisLabel: { color: "#6b7280", fontSize: 12 }
-        },
-        visualMap: {
-            show: true,
-            type: "continuous",
-            min: 10,
-            max: 40,
-            dimension: 2,             // use TotalValue for coloring
-            orient: "vertical",
-            right: "5%",
-            top: "10%",
-            bottom: "10%",
-            itemHeight: 300,          // height of the legend
-            text: ["Total Value", ""],                 // hide default “High”/“Low” labels
-            inRange: {
-                color: [
-                    "#FFF3E6",  // low
-                    "#F27C2D",  // mid
-                    "#802706"   // high
-                ]
-            }
-        },
-        series: [
-            {
-                type: "bar",
-                // the series will automatically take TotalSales for y,
-                // because we encode it below
-                encode: {
-                    x: "Product",
-                    y: "TotalSales",
-                    tooltip: ["TotalSales", "TotalValue"]
-                },
-                barWidth: "40%",
-                itemStyle: { borderRadius: [4, 4, 0, 0] }
-            }
-        ],
-        tooltip: {
-            trigger: "axis",
-            axisPointer: { type: "shadow" },
-            formatter: params => {
-                const p = params[0];
-                const idx = p.dataIndex;
-                return `
-          Product: ${products[idx]}<br/>
-          TotalSales: ${sales[idx]}<br/>
-          TotalValue: ${totalValues[idx]}
-        `;
-            }
-        }
+  // 3) Prepare visualMap if needed
+  let visualMap = null;
+  if (colorKey) {
+    const colorValues = sorted.map(r => r[colorKey]);
+    visualMap = {
+      show: true,
+      type: "continuous",
+      min: Math.min(...colorValues),
+      max: Math.max(...colorValues),
+      dimension: 2,           // the 3rd column in the dataset
+      orient: "vertical",
+      right: "5%",
+      top: "10%",
+      bottom: "10%",
+      itemHeight: 300,
+      text: [colorKey, ""],
+      inRange: {
+        color: ["#FFF3E6", "#F27C2D", "#802706"]
+      }
     };
+  }
 
-    return (
-        <div className="w-full max-w-5xl mx-auto">
-            <ReactECharts option={option} style={{ height: 400 }} />
-        </div>
-    );
+  // 4) Build the option
+  const option = {
+    title: {
+      text: `${yLabel} by ${xLabel}`,
+      left: "left",
+      textStyle: { fontSize: 16, fontWeight: 700 }
+    },
+    dataset: {
+      source: sorted,
+      dimensions: colorKey
+        ? [xKey, yKey, colorKey]
+        : [xKey, yKey]
+    },
+    grid: { top: 50, bottom: 50, left: 60, right: colorKey ? 100 : 60 },
+    xAxis: {
+      type: "category",
+      name: xLabel,
+      nameLocation: "middle",
+      nameGap: 30,
+      axisLine: { lineStyle: { color: "#e5e7eb" } },
+      axisTick: { show: false },
+      axisLabel: { color: "#6b7280", fontSize: 12 }
+    },
+    yAxis: {
+      type: "value",
+      name: yLabel,
+      nameLocation: "middle",
+      nameGap: 40,
+      axisLine: { show: false },
+      splitLine: { lineStyle: { color: "#e5e7eb", type: "dashed" } },
+      axisLabel: { color: "#6b7280", fontSize: 12 }
+    },
+    ...(visualMap && { visualMap }),
+    series: [
+      {
+        type: "bar",
+        encode: {
+          x: xKey,
+          y: yKey,
+          ...(colorKey && { tooltip: [yKey, colorKey] })
+        },
+        barWidth: "40%",
+        itemStyle: { borderRadius: [4, 4, 0, 0] }
+      }
+    ],
+    tooltip: {
+      trigger: "axis",
+      axisPointer: { type: "shadow" },
+      formatter: params => {
+        const p = params[0];
+        const idx = p.dataIndex;
+        let tpl = `\n${xKey}: ${categories[idx]}<br/>${yKey}: ${values[idx]}`;
+        if (colorKey) tpl += `<br/>${colorKey}: ${sorted[idx][colorKey]}`;
+        return tpl;
+      }
+    }
+  };
+
+  return (
+    <div className="w-full max-w-5xl mx-auto">
+      <ReactECharts option={option} style={{ height: 400, width: "100%" }} />
+    </div>
+  );
 }

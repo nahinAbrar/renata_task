@@ -15,9 +15,11 @@ import {
 import PeopleIcon from "@mui/icons-material/People";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import { useFilters } from "@/contexts/FilterContext";
 
 export default function DashboardHome() {
     const customers = useCustomers();
+    const filters = useFilters();
 
     // Show loader while data is fetching
     if (!customers.length) {
@@ -28,12 +30,19 @@ export default function DashboardHome() {
         );
     }
 
+    const filtered = customers.filter(c =>
+        (filters.division ? c.division === filters.division : true) &&
+        (filters.gender ? c.gender === filters.gender : true) &&
+        c.age >= filters.ageRange[0] &&
+        c.age <= filters.ageRange[1]
+    );
+
     // Compute KPIs
     const totalCustomers = customers.length;
     const avgIncome =
-        customers.reduce((sum, c) => sum + c.income, 0) / totalCustomers;
+        filtered.reduce((sum, c) => sum + c.income, 0) / totalCustomers;
     const marriedPct =
-        (customers.filter(c => c.married).length / totalCustomers) * 100;
+        (filtered.filter(c => c.married).length / totalCustomers) * 100;
 
     const kpis = [
         {
@@ -90,9 +99,9 @@ export default function DashboardHome() {
                     <Link href="/dashboard/bar" passHref legacyBehavior>
                         <Card sx={{ cursor: "pointer" }} elevation={2}>
                             <CardContent>
-                                <Typography variant="h6">Sales by Product</Typography>
+                                <Typography variant="h6">Bar Chart</Typography>
                                 <Typography variant="body2" color="text.secondary">
-                                    Bar chart view of product sales
+                                   Avg income by division
                                 </Typography>
                             </CardContent>
                         </Card>
@@ -100,12 +109,12 @@ export default function DashboardHome() {
                 </Grid>
 
                 <Grid item xs={12} sm={6} md={4}>
-                    <Link href="/dashboard/gauge" passHref legacyBehavior>
+                    <Link href="/dashboard/gender" passHref legacyBehavior>
                         <Card sx={{ cursor: "pointer" }} elevation={2}>
                             <CardContent>
-                                <Typography variant="h6">Monthly Sales Gauge</Typography>
+                                <Typography variant="h6">Pie Chart</Typography>
                                 <Typography variant="body2" color="text.secondary">
-                                    Gauge chart view of monthly performance
+                                    See Gender Split
                                 </Typography>
                             </CardContent>
                         </Card>

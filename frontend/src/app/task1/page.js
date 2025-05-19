@@ -6,36 +6,43 @@ import BarChart from "@/components/BarChart";
 import GaugeChart from "@/components/GaugeChart";
 
 export default function Task1Page() {
-    const [barData, setBarData] = useState([]);
+  const [barData, setBarData] = useState([]);
 
-    useEffect(() => {
-        loadCsvFromFile("/data/task1BarChart.csv").then(setBarData);
-    }, []);
+  useEffect(() => {
+    loadCsvFromFile("/data/task1BarChart.csv").then(setBarData);
+  }, []);
 
-    const [data, setData] = useState([]);
-    const [selected, setSelected] = useState(null);
-    useEffect(() => {
-        loadCsvFromFile("/data/task2GaugeChart.csv").then(raw => {
-            const parsed = raw.map(r => ({ month: r.month, sales: Number(r.sales) }));
-            setData(parsed);
-        });
-    }, []);
+  const [data, setData] = useState([]);
+  const [selected, setSelected] = useState(null);
+  useEffect(() => {
+    loadCsvFromFile("/data/task2GaugeChart.csv").then(raw => {
+      const parsed = raw.map(r => ({ month: r.month, sales: Number(r.sales) }));
+      setData(parsed);
+    });
+  }, []);
 
-    const values = data.map(r => r.sales);
-    const minSales = Math.min(...values);
-    const maxSales = Math.max(...values);
-    const gaugeMin = minSales;                      // e.g. 100 000
-    const gaugeMax = Math.ceil(maxSales / 1_000_000) * 1_000_000;
+  const values = data.map(r => r.sales);
+  const minSales = Math.min(...values);
+  const maxSales = Math.max(...values);
+  const gaugeMin = minSales;                      // e.g. 100 000
+  const gaugeMax = Math.ceil(maxSales / 1_000_000) * 1_000_000;
 
 
 
-    return (
+  return (
     <section className="p-6">
       <h1 className="text-2xl font-bold mb-4 text-center">TASK 1</h1>
       <div className="flex flex-col">
         <div>
           {barData.length
-            ? <BarChart data={barData} />
+            ? <BarChart
+              data={barData}
+              xKey="Product"
+              yKey="TotalSales"
+              colorKey="TotalValue"
+              xLabel="Product"
+              yLabel="Total Sales"
+            />
             : <p>Loading chart…</p>
           }
         </div>
@@ -87,5 +94,5 @@ export default function Task1Page() {
         </div>
       </div>
     </section>
-    );
+  );
 }
