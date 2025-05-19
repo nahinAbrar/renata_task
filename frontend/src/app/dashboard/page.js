@@ -22,10 +22,11 @@ import BarChartIcon from "@mui/icons-material/BarChart";
 import SpeedIcon from "@mui/icons-material/Speed";
 import QueryStatsIcon from "@mui/icons-material/QueryStats";
 import PieChartIcon from "@mui/icons-material/PieChart";
+import FilterPanel from "@/components/FilterPanel";
 
 export default function DashboardHome() {
     const customers = useCustomers();
-    const { division, gender, ageRange } = useFilters();
+    const { division, gender, ageRange, incomeRange } = useFilters();
 
     if (!customers.length) {
         return (
@@ -98,6 +99,9 @@ export default function DashboardHome() {
 
     return (
         <Box>
+
+            <FilterPanel />
+
             {/* KPI Row */}
             <Grid container spacing={2} sx={{ mb: 4 }}>
                 {kpis.map(({ label, value, icon }) => (

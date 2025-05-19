@@ -29,11 +29,11 @@ import { FilterProvider } from "@/contexts/FilterContext";
 import FilterPanel from "@/components/FilterPanel";
 
 const drawerWidth = 240;
- const navItems = [
-   { label: "Home",        href: "/dashboard",      icon: <HomeIcon /> },
-   { label: "Bar Chart",   href: "/dashboard/bar",  icon: <BarChartIcon /> },
-   { label: "Gender Split",href: "/dashboard/gender",icon: <PieChartIcon /> },
- ];
+const navItems = [
+  { label: "Home", href: "/dashboard", icon: <HomeIcon /> },
+  { label: "Bar Chart", href: "/dashboard/bar", icon: <BarChartIcon /> },
+  { label: "Gender Split", href: "/dashboard/gender", icon: <PieChartIcon /> },
+];
 
 
 export default function DashboardLayout({ children }) {
@@ -137,7 +137,7 @@ export default function DashboardLayout({ children }) {
               }}
             >
               {drawer}
-              <FilterPanel />
+
             </Drawer>
             <Drawer
               variant="permanent"
@@ -148,7 +148,7 @@ export default function DashboardLayout({ children }) {
               }}
             >
               {drawer}
-              <FilterPanel />
+
             </Drawer>
           </Box>
 
