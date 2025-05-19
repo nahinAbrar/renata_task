@@ -11,7 +11,8 @@ export default function BarChart({
   yKey = "value",
   colorKey = null,
   xLabel = xKey,
-  yLabel = yKey
+  yLabel = yKey,
+  onEvents = {}, 
 }) {
   // 1) Sort by yKey descending
   const sorted = [...data].sort((a, b) => b[yKey] - a[yKey]);
@@ -102,7 +103,7 @@ export default function BarChart({
 
   return (
     <div className="w-full max-w-5xl mx-auto">
-      <ReactECharts option={option} style={{ height: 400, width: "100%" }} />
+      <ReactECharts option={option} style={{ height: 400, width: "100%" }} onEvents={onEvents} />
     </div>
   );
 }

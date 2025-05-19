@@ -23,10 +23,9 @@ import HomeIcon from "@mui/icons-material/Home";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import PieChartIcon from "@mui/icons-material/PieChart";
 
-
 import ThemeProviderClient from "@/components/ThemeProviderClient";
 import { FilterProvider } from "@/contexts/FilterContext";
-import FilterPanel from "@/components/FilterPanel";
+import { useAuth } from "@/utils/useAuth";
 
 const drawerWidth = 240;
 const navItems = [
@@ -35,11 +34,11 @@ const navItems = [
   { label: "Gender Split", href: "/dashboard/gender", icon: <PieChartIcon /> },
 ];
 
-
 export default function DashboardLayout({ children }) {
-  const router = useRouter();
+  const router   = useRouter();
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const { username, role } = useAuth(); // ← added
 
   useEffect(() => {
     if (!sessionStorage.getItem("role")) router.replace("/login");
@@ -48,6 +47,7 @@ export default function DashboardLayout({ children }) {
   const handleDrawerToggle = () => setMobileOpen(!mobileOpen);
   const handleLogout = () => {
     sessionStorage.removeItem("role");
+    sessionStorage.removeItem("username");          // ← if you stored username
     router.push("/login");
   };
 
@@ -79,7 +79,7 @@ export default function DashboardLayout({ children }) {
         ))}
       </List>
 
-      {/* Mobile‐only logout */}
+      {/* Mobile‑only logout */}
       <Box sx={{ p: 2, display: { md: "none" } }}>
         <Button variant="outlined" color="error" fullWidth onClick={handleLogout}>
           Logout
@@ -110,10 +110,36 @@ export default function DashboardLayout({ children }) {
               >
                 <MenuIcon />
               </IconButton>
+
               <Typography variant="h5" sx={{ flexGrow: 1 }}>
                 Analytics Dashboard
               </Typography>
-              {/* Desktop‐only Logout */}
+
+              {/* ← Welcome & role badge */}
+              <Box sx={{ display: "flex", alignItems: "center", mr: 2 }}>
+                <Typography variant="body1">
+                  Welcome{username ? `, ${username}` : ""}
+                </Typography>
+                {role && (
+                  <Typography
+                    variant="caption"
+                    sx={{
+                      ml: 1,
+                      px: 1,
+                      py: 0.25,
+                      bgcolor: "primary.light",
+                      borderRadius: 1,
+                      fontSize: "0.75rem",
+                      fontWeight: 500,
+                      color: "primary.contrastText"
+                    }}
+                  >
+                    {role}
+                  </Typography>
+                )}
+              </Box>
+
+              {/* Desktop‑only Logout */}
               <Button
                 color="error"
                 onClick={handleLogout}
@@ -137,7 +163,6 @@ export default function DashboardLayout({ children }) {
               }}
             >
               {drawer}
-
             </Drawer>
             <Drawer
               variant="permanent"
@@ -148,7 +173,6 @@ export default function DashboardLayout({ children }) {
               }}
             >
               {drawer}
-
             </Drawer>
           </Box>
 
