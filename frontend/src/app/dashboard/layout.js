@@ -27,6 +27,14 @@ import ThemeProviderClient from "@/components/ThemeProviderClient";
 import { FilterProvider } from "@/contexts/FilterContext";
 import { useAuth } from "@/utils/useAuth";
 
+import Switch from "@mui/material/Switch";
+import FormControlLabel from "@mui/material/FormControlLabel";
+
+import { useTheme } from "@mui/material/styles";
+import Brightness4Icon from "@mui/icons-material/Brightness4";
+import Brightness7Icon from "@mui/icons-material/Brightness7";
+import { useColorMode } from "@/components/ThemeProviderClient";
+
 const drawerWidth = 240;
 const navItems = [
   { label: "Home", href: "/dashboard", icon: <HomeIcon /> },
@@ -35,10 +43,11 @@ const navItems = [
 ];
 
 export default function DashboardLayout({ children }) {
-  const router   = useRouter();
+  const router = useRouter();
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = React.useState(false);
-  const { username, role } = useAuth(); // ← added
+  const { username, role, realRole } = useAuth();
+
 
   useEffect(() => {
     if (!sessionStorage.getItem("role")) router.replace("/login");
@@ -138,6 +147,28 @@ export default function DashboardLayout({ children }) {
                   </Typography>
                 )}
               </Box>
+
+              {/* Toggles */}
+              {realRole === "Admin" && (
+                <FormControlLabel
+                  control={
+                    <Switch
+                      checked={role === "SalesRep"}
+                      size="small"
+                      onChange={e => {
+                        const newView = e.target.checked ? "SalesRep" : "Admin";
+                        sessionStorage.setItem("role", newView);
+                        // no reload: update auth state by forcing a re-render
+                        window.location.reload();
+                      }}
+                    />
+                  }
+                  label="Impersonate SalesRep"
+                  sx={{ mr: 2 }}
+                />
+              )}
+
+
 
               {/* Desktop‑only Logout */}
               <Button

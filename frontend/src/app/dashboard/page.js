@@ -13,7 +13,9 @@ import {
     CardContent,
     Typography,
     CircularProgress,
+    IconButton,
 } from "@mui/material";
+import DownloadIcon from "@mui/icons-material/FileDownload";
 
 import PeopleIcon from "@mui/icons-material/People";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
@@ -24,8 +26,13 @@ import QueryStatsIcon from "@mui/icons-material/QueryStats";
 import PieChartIcon from "@mui/icons-material/PieChart";
 import FilterPanel from "@/components/FilterPanel";
 
+import { useAuth } from "@/utils/useAuth";
+import { saveAs } from "file-saver";
+import Skeleton from "@mui/material/Skeleton";
+
 export default function DashboardHome() {
     const customers = useCustomers();
+    const { role } = useAuth();
     const { division, gender, ageRange, incomeRange } = useFilters();
 
     if (!customers.length) {
@@ -33,6 +40,7 @@ export default function DashboardHome() {
             <Box sx={{ display: "flex", justifyContent: "center", mt: 8 }}>
                 <CircularProgress />
             </Box>
+            
         );
     }
 
@@ -97,6 +105,13 @@ export default function DashboardHome() {
         },
     ];
 
+    const handleExport = () => {
+        // build CSV of your KPI data
+        const csv = "Metric,Value\n" +
+            kpis.map(k => `${k.label},${k.value}`).join("\n");
+        saveAs(new Blob([csv], { type: "text/csv" }), "kpis.csv");
+    };
+
     return (
         <Box>
 
@@ -106,7 +121,17 @@ export default function DashboardHome() {
             <Grid container spacing={2} sx={{ mb: 4 }}>
                 {kpis.map(({ label, value, icon }) => (
                     <Grid item xs={12} sm={4} key={label}>
-                        <Card elevation={3}>
+                        <Card elevation={3} sx={{position: "relative", p: 2}}>
+                            {/* Export icon for Admin */}
+                            {role === "Admin" && (
+                                <IconButton
+                                    size="small"
+                                    onClick={handleExport}
+                                    sx={{ position: "absolute", top: 8, right: 8 }}
+                                >
+                                    <DownloadIcon fontSize="small" />
+                                </IconButton>
+                            )}
                             <CardContent sx={{ display: "flex", alignItems: "center", gap: 2 }}>
                                 {icon}
                                 <Box>

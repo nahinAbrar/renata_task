@@ -4,13 +4,14 @@
 import { useState, useEffect } from "react";
 
 export function useAuth() {
-  const [user, setUser] = useState({ username: null, role: null });
+  const [auth, setAuth] = useState({ username: null, role: null, realRole: null });
 
   useEffect(() => {
-    const role = sessionStorage.getItem("role");
-    const username = sessionStorage.getItem("username"); // set this on login if you haven’t already
-    setUser({ username, role });
+    const realRole = sessionStorage.getItem("realRole");
+    const role     = sessionStorage.getItem("role");
+    const username = sessionStorage.getItem("username");
+    setAuth({ username, role, realRole });
   }, []);
 
-  return user;
+  return auth;
 }

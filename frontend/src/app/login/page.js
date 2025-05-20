@@ -21,6 +21,7 @@ export default function LoginPage() {
     );
     if (found) {
       // store role in sessionStorage and redirect
+      sessionStorage.setItem("realRole", found.role);
       sessionStorage.setItem("role", found.role);
       sessionStorage.setItem("username", found.username);
       router.push("/dashboard/");
