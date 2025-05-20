@@ -86,12 +86,6 @@ export default function DashboardHome() {
             subtitle: "Bar chart view of product sales",
         },
         {
-            label: "Monthly Sales",
-            href: "/dashboard/gauge",
-            icon: <SpeedIcon fontSize="large" color="action" />,
-            subtitle: "Gauge chart view of monthly performance",
-        },
-        {
             label: "Gender Split",
             href: "/dashboard/gender",
             icon: <PieChartIcon fontSize="large" color="action" />,

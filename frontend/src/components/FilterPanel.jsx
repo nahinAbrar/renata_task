@@ -1,8 +1,9 @@
 "use client";
 
 import React from "react";
-import { useFilters } from "@/contexts/FilterContext";
-import { useAuth } from "@/utils/useAuth";
+import { useCustomers } from "@/utils/useCustomers";    // ← import this
+import { useFilters }   from "@/contexts/FilterContext";
+import { useAuth }      from "@/utils/useAuth";
 import {
   Box,
   FormControl,
@@ -14,8 +15,20 @@ import {
 } from "@mui/material";
 
 export default function FilterPanel() {
-  const { division, setDivision, gender, setGender, ageRange, setAgeRange, incomeRange, setIncomeRange } = useFilters();
+  const customers = useCustomers();                    // ← load all customers
+  const {
+    division, setDivision,
+    gender,   setGender,
+    ageRange, setAgeRange,
+    incomeRange, setIncomeRange
+  } = useFilters();
   const { role } = useAuth();
+
+  // derive unique division names
+  const divisions = React.useMemo(() => {
+    const set = new Set(customers.map(c => c.division).filter(Boolean));
+    return ["", ...Array.from(set)];                  // empty string for “All Divisions”
+  }, [customers]);
 
   // SalesReps can only filter by Division:
   const hideDetailed = role === "SalesRep";
@@ -42,11 +55,15 @@ export default function FilterPanel() {
           value={division}
           onChange={e => setDivision(e.target.value)}
         >
-          {/* …your division list… */}
+          {divisions.map(d => (
+            <MenuItem key={d} value={d}>
+              {d || "All Divisions"}
+            </MenuItem>
+          ))}
         </Select>
       </FormControl>
 
-      {/* Hide gender & age & income for SalesReps */}
+      {/* Hide gender, age & income for SalesReps */}
       {!hideDetailed && (
         <>
           <FormControl fullWidth size="small" sx={{ mb: 2 }}>
@@ -70,7 +87,7 @@ export default function FilterPanel() {
             onChange={(e, v) => setAgeRange(v)}
             valueLabelDisplay="auto"
             min={18}
-            max={80}
+            max={60}
             sx={{ mb: 2, width: "50%" }}
           />
 

@@ -34,12 +34,14 @@ import { useTheme } from "@mui/material/styles";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
 import { useColorMode } from "@/components/ThemeProviderClient";
+import TimelineIcon from '@mui/icons-material/Timeline';
 
 const drawerWidth = 240;
 const navItems = [
   { label: "Home", href: "/dashboard", icon: <HomeIcon /> },
   { label: "Bar Chart", href: "/dashboard/bar", icon: <BarChartIcon /> },
   { label: "Gender Split", href: "/dashboard/gender", icon: <PieChartIcon /> },
+  { label: "Age Histogram", href: "/dashboard/age", icon: <TimelineIcon /> },
 ];
 
 export default function DashboardLayout({ children }) {
