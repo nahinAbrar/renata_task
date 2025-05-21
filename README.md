@@ -3,15 +3,16 @@
 **Deadline:** May 21, 2025  
 **Tech Stack:**  
 - **Frontend:** Next.js (React)  
-- **Charts:** --
+- **Charts:** React Echarts
 - **Styling / UI:** Tailwind CSS 
+- **Components:** Acternity UI, Material UI
 - **Deployment:** Vercel  
 
 ---
 
 ## Project Overview
 
-Build an interactive analytics dashboard for Renata PLC that includes:
+Build an interactive analytics dashboard that includes:
 
 1. **Task 1 (Frontend)**  
    - A 3‑variable bar chart  
@@ -20,7 +21,7 @@ Build an interactive analytics dashboard for Renata PLC that includes:
 2. **Task 2 (Full‑Stack Dashboard)**  
    - ERD design for the given dataset  
    - Sidebar + dashboard layout with multiple visuals and filters  
-   - Role‑based login (Admin, Sales Rep, Viewer)  
+   - Role‑based login (Admin, Sales Rep)  
 
 ---
 
@@ -30,7 +31,7 @@ Build an interactive analytics dashboard for Renata PLC that includes:
 1. **Clone & Install**
 
    ```bash
-   git clone <repo-url>
+   git clone https://github.com/nahinAbrar/renata_task
    cd frontend
    npm install
 
@@ -51,11 +52,11 @@ Open http://localhost:3000.
 
 *   /Landing page with animated lamp, shooting stars, and **Task 1** / **Task 2** buttons.
     
-*   /task1**Task 1**: Bar chart + Gauge chart from CSV.
+*   /task1** Task 1**: Bar chart + Gauge chart from CSV.
     
-*   /loginLogin form. Stores username & role in sessionStorage.
+*   /login Login form. Stores username & role in sessionStorage.
     
-*   /dashboard**DashboardHome** (protected):
+*   /dashboard **DashboardHome** (protected):
     
     *   Advanced Filters (Division, Gender, Age, Income)
         
@@ -65,13 +66,9 @@ Open http://localhost:3000.
         
 *   /dashboard/barAvg Income by Division bar chart (Admin: CSV export + drill‑down).
     
-*   /dashboard/gaugeMonthly Sales gauge chart.
-    
 *   /dashboard/genderGender Split pie chart.
     
 *   /dashboard/ageAge Distribution histogram.
-    
-*   /dashboard/customers _(optional)_CRUD table of customers (Admin edit/add/delete, SalesRep read‑only).
     
 
 🎨 Styling & Fonts
@@ -85,7 +82,7 @@ Open http://localhost:3000.
     
 *   **ECharts** (via echarts-for-react) for interactive charts.
     
-*   **Framer Motion** for entrance animations.
+*   **Motion** for entrance animations.
     
 
 🔧 Key Components
@@ -116,7 +113,7 @@ Open http://localhost:3000.
     *   Only Division filter, read‑only charts & tables.
         
 
-Use the **Impersonate SalesRep** switch in the AppBar to toggle views for testing.
+Use the **Toggle SalesRep** switch in the AppBar to toggle views for testing.
 
 📦 Build & Deploy
 -----------------
@@ -133,6 +130,4 @@ Deploy to Vercel or Netlify—public folder CSVs will be served directly.
 
 *   Ensure CSV file paths match public/data/....
     
-*   The optional **CRUD API** lives under src/app/api/customers/route.js.
-    
-*   Dark/light mode and skeleton loaders are provided as commented examples—implement as needed.
+*   Project Started: 16 May, Ended: 21 May
