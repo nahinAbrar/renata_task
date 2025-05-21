@@ -52,7 +52,7 @@ Open http://localhost:3000.
 
 *   /Landing page with animated lamp, shooting stars, and **Task 1** / **Task 2** buttons.
     
-*   /task1** Task 1**: Bar chart + Gauge chart from CSV.
+*   /task1 Task 1: Bar chart + Gauge chart from CSV.
     
 *   /login Login form. Stores username & role in sessionStorage.
     
@@ -118,9 +118,9 @@ Use the **Toggle SalesRep** switch in the AppBar to toggle views for testing.
 📦 Build & Deploy
 -----------------
 
-*   bashCopyEditnpm run build
+*   npm run build
     
-*   bashCopyEditnpm start
+*   npm start
     
 
 Deploy to Vercel or Netlify—public folder CSVs will be served directly.
