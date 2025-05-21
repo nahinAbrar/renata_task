@@ -41,9 +41,6 @@ Build an interactive analytics dashboard that includes:
 
 3. **Run Dev Server**
 
-bash
-Copy
-Edit
 npm run dev
 Open http://localhost:3000.
 
@@ -66,9 +63,9 @@ Open http://localhost:3000.
         
 *   /dashboard/barAvg Income by Division bar chart (Admin: CSV export + drill‑down).
     
-*   /dashboard/genderGender Split pie chart.
+*   /dashboard/gender Gender Split pie chart.
     
-*   /dashboard/ageAge Distribution histogram.
+*   /dashboard/age Age Distribution histogram.
     
 
 🎨 Styling & Fonts
@@ -88,7 +85,7 @@ Open http://localhost:3000.
 🔧 Key Components
 -----------------
 
-*   **FilterPanel**:Division select, Gender, Age & Income sliders. Respects role.
+*   **FilterPanel**: Division select, Gender, Age & Income sliders. Respects role.
     
 *   **BarChart | GaugeChart | PieChart**:Reusable ECharts wrappers.
     
