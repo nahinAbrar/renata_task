@@ -1,6 +1,7 @@
 // src/app/login/page.js
 "use client";
 
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -59,6 +60,14 @@ export default function LoginPage() {
           Login
         </button>
       </form>
+
+      <div className="mt-6">
+        <Link href="/task1">
+          <button className="px-6 py-3 bg-green-600 text-white rounded hover:bg-green-700">
+            Task 1
+          </button>
+        </Link>
+      </div>
     </div>
   );
 }
