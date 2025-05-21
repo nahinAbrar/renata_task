@@ -2,8 +2,8 @@
 
 import React from "react";
 import { useCustomers } from "@/utils/useCustomers";
-import { useFilters }   from "@/contexts/FilterContext";
-import { useAuth }      from "@/utils/useAuth";
+import { useFilters } from "@/contexts/FilterContext";
+import { useAuth } from "@/utils/useAuth";
 import {
   Box,
   FormControl,
@@ -15,10 +15,10 @@ import {
 } from "@mui/material";
 
 export default function FilterPanel() {
-  const customers = useCustomers();              
+  const customers = useCustomers();
   const {
     division, setDivision,
-    gender,   setGender,
+    gender, setGender,
     ageRange, setAgeRange,
     incomeRange, setIncomeRange
   } = useFilters();
@@ -27,7 +27,7 @@ export default function FilterPanel() {
 
   const divisions = React.useMemo(() => {
     const set = new Set(customers.map(c => c.division).filter(Boolean));
-    return ["", ...Array.from(set)];                 
+    return ["", ...Array.from(set)];
   }, [customers]);
 
   // SalesReps can only filter by Division:
@@ -48,7 +48,7 @@ export default function FilterPanel() {
       </Typography>
 
       {/* Division always enabled */}
-      <FormControl fullWidth size="small" sx={{ mb: 2 , width: "50%" }}>
+      <FormControl fullWidth size="small" sx={{ mb: 2, width: "50%", mr: 20 }}>
         <InputLabel>Division</InputLabel>
         <Select
           label="Division"
@@ -66,7 +66,7 @@ export default function FilterPanel() {
       {/* Hide gender, age & income for SalesReps */}
       {!hideDetailed && (
         <>
-          <FormControl fullWidth size="small" sx={{ mb: 2, width: "50%"}}>
+          <FormControl fullWidth size="small" sx={{ mb: 2, width: "50%" }}>
             <InputLabel>Gender</InputLabel>
             <Select
               label="Gender"
@@ -88,7 +88,7 @@ export default function FilterPanel() {
             valueLabelDisplay="auto"
             min={18}
             max={60}
-            sx={{ mb: 2, width: "50%" }}
+            sx={{ mb: 2, width: "50%", ml: 2 }}
           />
 
           <Typography variant="body2" gutterBottom>
@@ -100,7 +100,7 @@ export default function FilterPanel() {
             valueLabelDisplay="auto"
             min={0}
             max={100000}
-            sx={{ mb: 2, width: "50%" }}
+            sx={{ mb: 2, width: "50%", ml: 2 }}
           />
         </>
       )}
