@@ -52,6 +52,8 @@ Open http://localhost:3000.
 *   /task1 Task 1: Bar chart + Gauge chart from CSV.
     
 *   /login Login form. Stores username & role in sessionStorage.
+
+*   /src/app/utils/users.js, use these data to login
     
 *   /dashboard **DashboardHome** (protected):
     
