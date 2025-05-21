@@ -4,6 +4,16 @@ import React from "react";
 import Link from "next/link";
 import { useCustomers } from "@/utils/useCustomers";
 import { useFilters } from "@/contexts/FilterContext";
+import DownloadIcon from "@mui/icons-material/FileDownload";
+import PeopleIcon from "@mui/icons-material/People";
+import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import BarChartIcon from "@mui/icons-material/BarChart";
+import QueryStatsIcon from "@mui/icons-material/QueryStats";
+import PieChartIcon from "@mui/icons-material/PieChart";
+import FilterPanel from "@/components/FilterPanel";
+import { useAuth } from "@/utils/useAuth";
+import { saveAs } from "file-saver";
 
 import {
     Box,
@@ -15,20 +25,6 @@ import {
     CircularProgress,
     IconButton,
 } from "@mui/material";
-import DownloadIcon from "@mui/icons-material/FileDownload";
-
-import PeopleIcon from "@mui/icons-material/People";
-import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import BarChartIcon from "@mui/icons-material/BarChart";
-import SpeedIcon from "@mui/icons-material/Speed";
-import QueryStatsIcon from "@mui/icons-material/QueryStats";
-import PieChartIcon from "@mui/icons-material/PieChart";
-import FilterPanel from "@/components/FilterPanel";
-
-import { useAuth } from "@/utils/useAuth";
-import { saveAs } from "file-saver";
-import Skeleton from "@mui/material/Skeleton";
 
 export default function DashboardHome() {
     const customers = useCustomers();
@@ -40,7 +36,7 @@ export default function DashboardHome() {
             <Box sx={{ display: "flex", justifyContent: "center", mt: 8 }}>
                 <CircularProgress />
             </Box>
-            
+
         );
     }
 
@@ -49,7 +45,8 @@ export default function DashboardHome() {
         (division ? c.division === division : true) &&
         (gender ? c.gender === gender : true) &&
         c.age >= ageRange[0] &&
-        c.age <= ageRange[1]
+        c.age <= ageRange[1] &&
+        (c.income >= incomeRange[0] && c.income <= incomeRange[1])
     );
 
     // KPI computations
@@ -115,7 +112,7 @@ export default function DashboardHome() {
             <Grid container spacing={2} sx={{ mb: 4 }}>
                 {kpis.map(({ label, value, icon }) => (
                     <Grid item xs={12} sm={4} key={label}>
-                        <Card elevation={3} sx={{position: "relative", p: 2}}>
+                        <Card elevation={3} sx={{ position: "relative", p: 2 }}>
                             {/* Export icon for Admin */}
                             {role === "Admin" && (
                                 <IconButton

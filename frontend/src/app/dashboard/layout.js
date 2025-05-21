@@ -1,9 +1,7 @@
-// src/app/dashboard/layout.js
 "use client";
 
 import React, { useEffect } from "react";
 import { useRouter, usePathname } from "next/navigation";
-
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import AppBar from "@mui/material/AppBar";
@@ -17,23 +15,15 @@ import Divider from "@mui/material/Divider";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import Button from "@mui/material/Button";
-
 import MenuIcon from "@mui/icons-material/Menu";
 import HomeIcon from "@mui/icons-material/Home";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import PieChartIcon from "@mui/icons-material/PieChart";
-
 import ThemeProviderClient from "@/components/ThemeProviderClient";
 import { FilterProvider } from "@/contexts/FilterContext";
 import { useAuth } from "@/utils/useAuth";
-
 import Switch from "@mui/material/Switch";
 import FormControlLabel from "@mui/material/FormControlLabel";
-
-import { useTheme } from "@mui/material/styles";
-import Brightness4Icon from "@mui/icons-material/Brightness4";
-import Brightness7Icon from "@mui/icons-material/Brightness7";
-import { useColorMode } from "@/components/ThemeProviderClient";
 import TimelineIcon from '@mui/icons-material/Timeline';
 
 const drawerWidth = 240;
@@ -165,7 +155,7 @@ export default function DashboardLayout({ children }) {
                       }}
                     />
                   }
-                  label="Impersonate SalesRep"
+                  label="Toggle SalesRep"
                   sx={{ mr: 2 }}
                 />
               )}
