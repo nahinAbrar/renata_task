@@ -12,14 +12,13 @@
 
 ## Project Overview
 
-Build an interactive analytics dashboard that includes:
-
 1. **Task 1 (Frontend)**  
    - A 3‑variable bar chart  
    - A 2‑variable gauge chart with Low/Medium/High tooltips  
 
 2. **Task 2 (Full‑Stack Dashboard)**  
-   - ERD design for the given dataset  
+   - ERD design for the given dataset 
+     Build an interactive analytics dashboard that includes:
    - Sidebar + dashboard layout with multiple visuals and filters  
    - Role‑based login (Admin, Sales Rep)  
 
