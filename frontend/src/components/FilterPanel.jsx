@@ -48,7 +48,7 @@ export default function FilterPanel() {
       </Typography>
 
       {/* Division always enabled */}
-      <FormControl fullWidth size="small" sx={{ mb: 2 }}>
+      <FormControl fullWidth size="small" sx={{ mb: 2 , width: "50%" }}>
         <InputLabel>Division</InputLabel>
         <Select
           label="Division"
@@ -66,7 +66,7 @@ export default function FilterPanel() {
       {/* Hide gender, age & income for SalesReps */}
       {!hideDetailed && (
         <>
-          <FormControl fullWidth size="small" sx={{ mb: 2 }}>
+          <FormControl fullWidth size="small" sx={{ mb: 2, width: "50%"}}>
             <InputLabel>Gender</InputLabel>
             <Select
               label="Gender"
@@ -99,7 +99,7 @@ export default function FilterPanel() {
             onChange={(e, v) => setIncomeRange(v)}
             valueLabelDisplay="auto"
             min={0}
-            max={200000}
+            max={100000}
             sx={{ mb: 2, width: "50%" }}
           />
         </>

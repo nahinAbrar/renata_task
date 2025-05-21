@@ -205,7 +205,7 @@ export default function DashboardLayout({ children }) {
             sx={{
               flexGrow: 1,
               p: 3,
-              ml: { md: `${drawerWidth}px` },
+              ml: 0,
               mt: 8,
               overflow: "auto"
             }}

@@ -109,13 +109,27 @@ export default function DashboardHome() {
             <Grid container spacing={2} sx={{ mb: 4 }}>
                 {kpis.map(({ label, value, icon }) => (
                     <Grid item xs={12} sm={4} key={label}>
-                        <Card elevation={3} sx={{ position: "relative", p: 2 }}>
+                        <Card elevation={4}
+                            sx={{
+                                position: "relative",
+                                p: 3,
+                                height: 160,
+                                transition: "transform 0.2s",
+                                "&:hover": { transform: "translateY(-4px)", boxShadow: 6 }
+                            }}>
                             {/* Export icon for Admin */}
                             {role === "Admin" && (
                                 <IconButton
                                     size="small"
                                     onClick={handleExport}
-                                    sx={{ position: "absolute", top: 8, right: 8 }}
+                                    sx={{
+                                        position: "absolute",
+                                        top: 8,
+                                        right: 8,
+                                        bgcolor: "background.paper",
+                                        boxShadow: 2,
+                                        "&:hover": { bgcolor: "grey.100" }
+                                    }}
                                 >
                                     <DownloadIcon fontSize="small" />
                                 </IconButton>
@@ -138,7 +152,13 @@ export default function DashboardHome() {
             <Grid container spacing={2}>
                 {visuals.map(({ label, href, icon, subtitle }) => (
                     <Grid item xs={12} sm={6} key={href}>
-                        <Card elevation={2} sx={{ height: 140 }}>
+                        <Card elevation={2}
+                            sx={{
+                                aspectRatio: "4 / 3",
+                                display: "flex",
+                                transition: "transform 0.2s",
+                                "&:hover": { transform: "translateY(-4px)", boxShadow: 4 }
+                            }}>
                             <CardActionArea
                                 component={Link}
                                 href={href}
@@ -149,6 +169,7 @@ export default function DashboardHome() {
                                         height: "100%",
                                         display: "flex",
                                         flexDirection: "column",
+                                        alignItems: "center",
                                         justifyContent: "center",
                                         gap: 1
                                     }}
