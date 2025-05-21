@@ -61,7 +61,7 @@ Open http://localhost:3000.
         
     *   2×2 grid of visual cards
         
-*   /dashboard/barAvg Income by Division bar chart (Admin: CSV export + drill‑down).
+*   /dashboard/bar Avg Income by Division bar chart (Admin: CSV export + drill‑down).
     
 *   /dashboard/gender Gender Split pie chart.
     

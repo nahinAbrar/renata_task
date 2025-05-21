@@ -33,6 +33,7 @@ export default function LoginPage() {
 
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-slate-100">
+      <h1 className="text-4xl font-bold mb-6">Task 2</h1>
       <form
         onSubmit={handleSubmit}
         className="p-6 bg-slate-400 rounded-xl shadow-md space-y-4 w-80"
@@ -61,10 +62,16 @@ export default function LoginPage() {
         </button>
       </form>
 
-      <div className="mt-6">
+      <div className="mt-6 flex gap-2">
         <Link href="/task1">
           <MagicBorderButton>
             Task 1
+          </MagicBorderButton>
+        </Link>
+
+        <Link href="/">
+          <MagicBorderButton>
+            Home
           </MagicBorderButton>
         </Link>
       </div>
