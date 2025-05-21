@@ -24,56 +24,6 @@ Build an interactive analytics dashboard for Renata PLC that includes:
 
 ---
 
-## 📁 Project Structure
-
-public/
-└─ data/
-├ task1BarChart.csv
-├ task2GaugeChart.csv
-└ customers.csv ← (optional, for CRUD)
-
-src/
-└─ app/
-├ layout.js ← RootLayout (global font)
-├ page.js ← HomePage (Lamp + stars + Task buttons)
-├ login/page.js ← Login form for Dashboard
-├ task1/page.js ← Task 1: Bar + Gauge charts
-└ dashboard/
-├ layout.js ← Dashboard shell (AppBar, Drawer, FilterContext)
-├ page.js ← DashboardHome (filters, KPIs, cards grid)
-├ bar/page.js ← Avg Income bar chart
-├ gauge/page.js ← Monthly Sales gauge chart
-├ gender/page.js ← Gender Split pie
-├ age/page.js ← Age Distribution histogram
-└ customers/ ← (optional) CRUD table
-└ page.js
-
-src/components/
-├ BarChart.jsx
-├ GaugeChart.jsx
-├ PieChart.jsx
-├ FilterPanel.jsx
-├ LampContainer.jsx
-├ MagicBorderButton.jsx
-└ ThemeProviderClient.jsx
-
-src/contexts/
-└ FilterContext.js
-
-src/utils/
-├ loadCsv.js
-├ useCustomers.js
-├ useAuth.js
-└ utils.js
-
-tailwind.config.js
-next.config.js
-package.json
-README.md ← you are here
-
-yaml
-Copy
-Edit
 
 ## 🚀 Getting Started
 
