@@ -48,7 +48,7 @@ export default function DashboardLayout({ children }) {
   const handleDrawerToggle = () => setMobileOpen(!mobileOpen);
   const handleLogout = () => {
     sessionStorage.removeItem("role");
-    sessionStorage.removeItem("username");          // ← if you stored username
+    sessionStorage.removeItem("username");          
     router.push("/login");
   };
 

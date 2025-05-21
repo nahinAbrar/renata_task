@@ -47,7 +47,7 @@ export default function GaugeChart({ value = 0, min = 0, max = 10 }) {
                     length: "60%",
                     width: 8,
                     itemStyle: { color: "#374151" },
-                    cap: { show: true, color: "#374151", radius: 6 } // rounded tip
+                    cap: { show: true, color: "#374151", radius: 6 }
                 },
                 axisTick: {
                     show: false,

@@ -14,14 +14,14 @@ export default function BarChart({
   yLabel = yKey,
   onEvents = {}, 
 }) {
-  // 1) Sort by yKey descending
+  // Sort by yKey descending
   const sorted = [...data].sort((a, b) => b[yKey] - a[yKey]);
 
-  // 2) Extract arrays
+  
   const categories = sorted.map(r => r[xKey]);
   const values     = sorted.map(r => r[yKey]);
 
-  // 3) Prepare visualMap if needed
+  
   let visualMap = null;
   if (colorKey) {
     const colorValues = sorted.map(r => r[colorKey]);
@@ -30,7 +30,7 @@ export default function BarChart({
       type: "continuous",
       min: Math.min(...colorValues),
       max: Math.max(...colorValues),
-      dimension: 2,           // the 3rd column in the dataset
+      dimension: 2,           
       orient: "vertical",
       right: "5%",
       top: "10%",
@@ -43,7 +43,7 @@ export default function BarChart({
     };
   }
 
-  // 4) Build the option
+  // Build the option
   const option = {
     title: {
       text: `${yLabel} by ${xLabel}`,

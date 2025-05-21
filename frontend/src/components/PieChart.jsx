@@ -3,7 +3,7 @@
 import React from "react";
 import dynamic from "next/dynamic";
 
-// SSR-disabled wrapper
+
 const ReactECharts = dynamic(() => import("echarts-for-react"), { ssr: false });
 
 /**

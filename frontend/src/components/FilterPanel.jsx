@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { useCustomers } from "@/utils/useCustomers";    // ← import this
+import { useCustomers } from "@/utils/useCustomers";
 import { useFilters }   from "@/contexts/FilterContext";
 import { useAuth }      from "@/utils/useAuth";
 import {
@@ -15,7 +15,7 @@ import {
 } from "@mui/material";
 
 export default function FilterPanel() {
-  const customers = useCustomers();                    // ← load all customers
+  const customers = useCustomers();              
   const {
     division, setDivision,
     gender,   setGender,
@@ -24,10 +24,10 @@ export default function FilterPanel() {
   } = useFilters();
   const { role } = useAuth();
 
-  // derive unique division names
+
   const divisions = React.useMemo(() => {
     const set = new Set(customers.map(c => c.division).filter(Boolean));
-    return ["", ...Array.from(set)];                  // empty string for “All Divisions”
+    return ["", ...Array.from(set)];                 
   }, [customers]);
 
   // SalesReps can only filter by Division:

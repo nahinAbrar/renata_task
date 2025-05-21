@@ -20,7 +20,7 @@ export function CustomerFilters({ division, setDivision, gender, setGender, ageR
           <MenuItem value="">All</MenuItem>
           <MenuItem value="Dhaka">Dhaka</MenuItem>
           <MenuItem value="Chittagong">Chittagong</MenuItem>
-          {/* etc. */}
+
         </Select>
       </FormControl>
 

@@ -22,20 +22,20 @@ import { useCustomers } from "@/utils/useCustomers";
 import { useFilters }   from "@/contexts/FilterContext";
 import { useAuth }      from "@/utils/useAuth";
 import BarChart        from "@/components/BarChart";
-import { saveAs }      from "file-saver"; // npm install file-saver
+import { saveAs }      from "file-saver";
 
 export default function AvgIncomeBarPage() {
-    // 1) Hooks at the top
+
     const customers = useCustomers();
     const { division, gender, ageRange } = useFilters();
     const { role } = useAuth();
 
-    // State for drill modal
+
     const [open, setOpen] = useState(false);
     const [drillDivision, setDrillDivision] = useState(null);
 
 
-    // 2) Loading state
+
     if (!customers.length) {
         return (
             <Box sx={{ display: "flex", justifyContent: "center", mt: 8 }}>
@@ -44,7 +44,7 @@ export default function AvgIncomeBarPage() {
         );
     }
 
-    // 3) Apply filters
+
     const filtered = customers.filter(c =>
         (division ? c.division === division : true) &&
         (gender ? c.gender === gender : true) &&
@@ -52,7 +52,7 @@ export default function AvgIncomeBarPage() {
         c.age <= ageRange[1]
     );
 
-    // 4) Aggregate: average income per division
+    // Aggregate: average income per division
     const sums = {};
     filtered.forEach(c => {
         if (!sums[c.division]) sums[c.division] = { total: 0, count: 0 };
@@ -64,9 +64,9 @@ export default function AvgIncomeBarPage() {
         value: count ? total / count : 0
     }));
 
-    // CSV Export
+
     const handleDownload = () => {
-        // Build CSV: header + rows
+
         const header = ["Division", "AvgIncome"];
         const rows = data.map(r => [r.category, r.value.toFixed(2)]);
         const csv = [header, ...rows].map(r => r.join(",")).join("\n");
@@ -74,17 +74,15 @@ export default function AvgIncomeBarPage() {
         saveAs(blob, "avg-income-by-division.csv");
     };
 
-    // Bar click handler
+
     const onChartClick = params => {
-        const clickedDiv = params.name;  // category name
+        const clickedDiv = params.name; 
         setDrillDivision(clickedDiv);
         setOpen(true);
     };
 
-    // Customers in drilled division
     const drillCustomers = customers.filter(c => c.division === drillDivision);
 
-    // 5) Render
     return (
         <Paper sx={{ p: 4, position: "relative" }}>
             <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
@@ -105,7 +103,6 @@ export default function AvgIncomeBarPage() {
                 yKey="value"
                 xLabel="Division"
                 yLabel="Avg Income (USD)"
-                // ECharts onClick binding
                 onEvents={{ click: onChartClick }}
             />
 

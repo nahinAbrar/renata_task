@@ -24,7 +24,7 @@ export default function Task1Page() {
   const values = data.map(r => r.sales);
   const minSales = Math.min(...values);
   const maxSales = Math.max(...values);
-  const gaugeMin = minSales;                      // e.g. 100 000
+  const gaugeMin = minSales;         
   const gaugeMax = Math.ceil(maxSales / 1_000_000) * 1_000_000;
 
 

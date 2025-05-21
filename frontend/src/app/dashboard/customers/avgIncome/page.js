@@ -1,4 +1,3 @@
-// src/app/dashboard/customers/avgIncome/page.js
 "use client";
 
 import { useCustomers } from "@/utils/useCustomers";

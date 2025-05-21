@@ -8,15 +8,14 @@ import MagicBorderButton from "@/components/MagicBorderButton";
 
 export default function HomePage() {
   return (
-    <LampContainer className="relative">  {/* ensure relative positioning */}
+    <LampContainer className="relative">
 
-      {/* ─── Full‑screen Star Layers (fixed to viewport) ─── */}
+
       <div className="fixed inset-0 -z-10">
         <StarsBackground className="w-full h-full" />
         <ShootingStars className="w-full h-full" />
       </div>
 
-      {/* ─── Centered Content ─── */}
       <motion.div
         initial={{ opacity: 0.5, y: 450 }}
         whileInView={{ opacity: 1, y: 350 }}

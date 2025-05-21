@@ -1,6 +1,6 @@
-// src/app/login/page.js
 "use client";
 
+import MagicBorderButton from "@/components/MagicBorderButton";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -32,30 +32,30 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen">
+    <div className="flex flex-col items-center justify-center h-screen bg-slate-100">
       <form
         onSubmit={handleSubmit}
-        className="p-6 bg-white rounded shadow-md space-y-4 w-80"
+        className="p-6 bg-slate-400 rounded-xl shadow-md space-y-4 w-80"
       >
         <h2 className="text-2xl font-bold text-center">Login</h2>
         {error && <div className="text-red-600">{error}</div>}
         <input
           type="text"
           placeholder="Username"
-          className="w-full p-2 border rounded"
+          className="w-full p-2 border rounded-xl"
           value={form.user}
           onChange={e => setForm({ ...form, user: e.target.value })}
         />
         <input
           type="password"
           placeholder="Password"
-          className="w-full p-2 border rounded"
+          className="w-full p-2 border rounded-xl"
           value={form.pass}
           onChange={e => setForm({ ...form, pass: e.target.value })}
         />
         <button
           type="submit"
-          className="w-full py-2 bg-blue-600 text-white rounded"
+          className="w-full py-2 bg-blue-500 hover:bg-blue-300 hover:text-black text-white rounded"
         >
           Login
         </button>
@@ -63,9 +63,9 @@ export default function LoginPage() {
 
       <div className="mt-6">
         <Link href="/task1">
-          <button className="px-6 py-3 bg-green-600 text-white rounded hover:bg-green-700">
-            Task 1
-          </button>
+          <MagicBorderButton>
+            Task 1
+          </MagicBorderButton>
         </Link>
       </div>
     </div>

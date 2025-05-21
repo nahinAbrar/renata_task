@@ -1,4 +1,3 @@
-// src/utils/useAuth.js
 "use client";
 
 import { useState, useEffect } from "react";

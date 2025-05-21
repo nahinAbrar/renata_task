@@ -33,7 +33,7 @@ export default function MagicBorderButton({
       {/* Inner content */}
       <span
         className={cn(
-          "inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full px-6 py-3 text-sm font-medium backdrop-blur-3xl",
+          "inline-flex h-full w-full cursor-pointer hover:bg-slate-600 items-center justify-center rounded-full px-6 py-3 text-sm font-medium backdrop-blur-3xl",
           bgClass,
           textClass
         )}

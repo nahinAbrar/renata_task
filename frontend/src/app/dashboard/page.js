@@ -40,7 +40,7 @@ export default function DashboardHome() {
         );
     }
 
-    // apply filters
+
     const filtered = customers.filter(c =>
         (division ? c.division === division : true) &&
         (gender ? c.gender === gender : true) &&
@@ -49,7 +49,6 @@ export default function DashboardHome() {
         (c.income >= incomeRange[0] && c.income <= incomeRange[1])
     );
 
-    // KPI computations
     const totalCustomers = filtered.length;
     const avgIncome =
         filtered.reduce((sum, c) => sum + c.income, 0) / totalCustomers || 0;
@@ -74,7 +73,7 @@ export default function DashboardHome() {
         },
     ];
 
-    // Visual cards
+
     const visuals = [
         {
             label: "Sales by Product",
@@ -97,7 +96,6 @@ export default function DashboardHome() {
     ];
 
     const handleExport = () => {
-        // build CSV of your KPI data
         const csv = "Metric,Value\n" +
             kpis.map(k => `${k.label},${k.value}`).join("\n");
         saveAs(new Blob([csv], { type: "text/csv" }), "kpis.csv");
@@ -107,7 +105,6 @@ export default function DashboardHome() {
         <Box>
 
             <FilterPanel />
-
             {/* KPI Row */}
             <Grid container spacing={2} sx={{ mb: 4 }}>
                 {kpis.map(({ label, value, icon }) => (

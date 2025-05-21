@@ -15,11 +15,11 @@ import {
 const ReactECharts = dynamic(() => import("echarts-for-react"), { ssr: false });
 
 export default function AgeDistributionPage() {
-  // 1) Always call hooks first
+
   const customers = useCustomers();
   const { division, gender, ageRange, incomeRange } = useFilters();
 
-  // 2) Apply filters (safe even if customers is empty)
+
   const filtered = customers.filter(c =>
     (division ? c.division === division : true) &&
     (gender   ? c.gender   === gender   : true) &&
@@ -27,7 +27,7 @@ export default function AgeDistributionPage() {
     c.income >= incomeRange[0] && c.income <= incomeRange[1]
   );
 
-  // 3) Compute bins & counts via useMemo
+
   const { bins, counts } = useMemo(() => {
     const ages = filtered.map(c => c.age);
     if (!ages.length) return { bins: [], counts: [] };
@@ -55,7 +55,7 @@ export default function AgeDistributionPage() {
     return { bins: binLabels, counts: cnts };
   }, [filtered]);
 
-  // 4) If still loading customers, show spinner
+
   if (!customers.length) {
     return (
       <Box sx={{ display: "flex", justifyContent: "center", mt: 8 }}>
@@ -64,7 +64,7 @@ export default function AgeDistributionPage() {
     );
   }
 
-  // 5) Render the chart
+
   const option = {
     title: { text: "Age Distribution", left: "center" },
     tooltip: { trigger: "axis", formatter: p => `${p[0].name}<br/>Count: ${p[0].value}` },

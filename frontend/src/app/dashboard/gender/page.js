@@ -15,12 +15,12 @@ export default function GenderSplitPage() {
   const customers = useCustomers();
   const { division, gender, ageRange } = useFilters();
 
-  // 1) loading
+
   if (!customers.length) {
     return <Box sx={{ display: "flex", justifyContent: "center", mt: 8 }}><CircularProgress/></Box>;
   }
 
-  // 2) apply same filters
+
   const filtered = customers.filter(c =>
     (division ? c.division === division : true) &&
     (gender   ? c.gender   === gender   : true) &&
@@ -28,7 +28,7 @@ export default function GenderSplitPage() {
     c.age <= ageRange[1]
   );
 
-  // 3) compute counts
+
   const counts = filtered.reduce(
     (acc, c) => {
       if (c.gender === "M") acc.M += 1;
